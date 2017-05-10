@@ -33,6 +33,17 @@ app.use(cookieParser());
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Express session
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+// Passport Init
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Express Validator
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
@@ -70,4 +81,4 @@ app.set('port', (process.env.PORT || 3000));
 
 app.listen(app.get('port'), () => {
   console.log('Server started on port ' + app.get('port'));
-}); 
+});
